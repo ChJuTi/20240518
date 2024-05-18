@@ -76,7 +76,6 @@ Array.prototype.heap_sort = function() {
 const inputArray = [3, 5, 3, 0, 8, 6, 1, 5, 8, 6, 2, 4, 9, 4, 7, 0, 1, 8, 9, 7, 3, 1, 2, 5, 9, 7, 4, 0, 2, 6];
 const sortedArray = inputArray.heap_sort();
 console.log(sortedArray);
-AI 產生的代碼。請仔細檢視及使用。 深入了解常見問題集。
 這段程式碼會將 inputArray 進行堆積排序，並輸出排序後的結果。如果有其他問題，歡迎詢問！12
 
 - Online C Compiler
