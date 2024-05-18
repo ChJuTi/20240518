@@ -78,33 +78,4 @@ const sortedArray = inputArray.heap_sort();
 console.log(sortedArray);
 AI 產生的代碼。請仔細檢視及使用。 深入了解常見問題集。
 這段程式碼會將 inputArray 進行堆積排序，並輸出排序後的結果。如果有其他問題，歡迎詢問！12
-
-深入了解
-
-1
-
-magiclen.org
-2
-
-zh.wikipedia.org
-3
-
-theriseofdavid.github.io
-4
-medium.com
-5
-
-ithelp.ithome.com.tw
-6
-alrightchiu.github.io
-7
-
-ithelp.ithome.com.tw
-8
-github.com
-9
-github.com
-10
-github.com
-
 '''
