@@ -25,58 +25,124 @@ GenAI_Algorithm_lab1 ==> 二元搜尋樹的各種實作(heap sort)
 
 
 '''
-**建立最大堆積（Max Heap）**或最小堆積（Min Heap）：
-如果要遞增排序，則建立最大堆積，使父節點的值大於子節點。
-如果要遞減排序，則建立最小堆積，使父節點的值小於子節點。
-排序過程：
-將最大（或最小）元素（即堆積的根節點）與未排序部分的最後一個元素交換。
-縮小堆積範圍，排除已排序的元素。
-重複上述步驟，直到整個陣列排序完成。
-以下是使用 JavaScript 實作的堆積排序程式碼：
+建堆 (Build Heap)：將未排序的陣列轉換成一個最大堆。
+排序 (Sort)：重複以下步驟直到陣列已排序：
+將堆的根節點（即最大值）與最後一個節點交換，然後減少堆的大小。
+將新的根節點進行堆化，使其保持最大堆性質。
+Pseudocode
+pseudo
+Copy code
+function heapSort(arr):
+    n = length(arr)
 
-JavaScript
+    // Step 1: Build a max heap
+    for i = floor(n / 2) - 1 to 0:
+        heapify(arr, n, i)
 
-Array.prototype.heap_sort = function() {
-    const arr = this.slice(0);
+    // Step 2: Extract elements from the heap one by one
+    for i = n - 1 to 0:
+        // Move current root to end
+        swap(arr[0], arr[i])
+        
+        // Call max heapify on the reduced heap
+        heapify(arr, i, 0)
 
-    function swap(i, j) {
-        const tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
-    }
+function heapify(arr, n, i):
+    largest = i      // Initialize largest as root
+    left = 2 * i + 1 // left child
+    right = 2 * i + 2 // right child
 
-    function max_heapify(start, end) {
-        let dad = start;
-        let son = dad * 2 + 1;
+    // If left child is larger than root
+    if left < n and arr[left] > arr[largest]:
+        largest = left
 
-        if (son >= end) return;
+    // If right child is larger than largest so far
+    if right < n and arr[right] > arr[largest]:
+        largest = right
 
-        if (son + 1 < end && arr[son] < arr[son + 1]) son++;
+    // If largest is not root
+    if largest != i:
+        swap(arr[i], arr[largest])
 
-        if (arr[dad] < arr[son]) {
-            swap(dad, son);
-            max_heapify(son, end);
-        }
-    }
+        // Recursively heapify the affected sub-tree
+        heapify(arr, n, largest)
+Python 代碼實現
+python
+Copy code
+def heapify(arr, n, i):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
 
-    const len = arr.length;
+    if left < n and arr[left] > arr[largest]:
+        largest = left
 
-    for (let i = Math.floor(len / 2) - 1; i >= 0; i--) {
-        max_heapify(i, len);
-    }
+    if right < n and arr[right] > arr[largest]:
+        largest = right
 
-    for (let i = len - 1; i > 0; i--) {
-        swap(0, i);
-        max_heapify(0, i);
-    }
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
 
-    return arr;
-};
+def heapSort(arr):
+    n = len(arr)
 
-const inputArray = [3, 5, 3, 0, 8, 6, 1, 5, 8, 6, 2, 4, 9, 4, 7, 0, 1, 8, 9, 7, 3, 1, 2, 5, 9, 7, 4, 0, 2, 6];
-const sortedArray = inputArray.heap_sort();
-console.log(sortedArray);
-這段程式碼會將 inputArray 進行堆積排序，並輸出排序後的結果。如果有其他問題，歡迎詢問！12
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i)
+
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+
+# 測試範例
+arr = [12, 11, 13, 5, 6, 7]
+heapSort(arr)
+print("排序後的陣列是:", arr)
+解釋
+建堆 (Build Heap)：
+從最後一個非葉子節點開始，向上逐個節點進行堆化操作。
+這保證了所有的非葉子節點都滿足最大堆性質。
+排序 (Sort)：
+將堆頂元素（最大值）與堆的最後一個元素交換，並將堆的大小減1。
+對新的根節點進行堆化，重新維持最大堆性質。
+重複這個過程，直到堆的大小縮小為1，排序完成。
+時間複雜度
+建堆的時間複雜度是 
+𝑂
+(
+𝑛
+)
+O(n)。
+每次提取最大元素並重新堆化的時間複雜度是 
+𝑂
+(
+log
+⁡
+𝑛
+)
+O(logn)，共進行 
+𝑛
+−
+1
+n−1 次。
+總時間複雜度是 
+𝑂
+(
+𝑛
+log
+⁡
+𝑛
+)
+O(nlogn)。
+這個算法的主要優點是穩定的時間複雜度 
+𝑂
+(
+𝑛
+log
+⁡
+𝑛
+)
+O(nlogn) 並且不需要額外的內存空間。
 
 - Online C Compiler
   - [Online C Compiler - Programiz](https://www.programiz.com/c-programming/online-compiler/)
